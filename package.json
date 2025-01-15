@@ -3,14 +3,18 @@
   "version": "0.1.0",
   "private": true,
   "dependencies": {
+    "@fortawesome/fontawesome-free": "^6.7.2",
     "bootstrap": "^5.3.3",
     "cra-template": "1.2.0",
+    "jquery": "^3.7.1",
+    "popper.js": "^1.16.1",
     "react": "^19.0.0",
     "react-bootstrap": "^2.10.7",
     "react-dom": "^19.0.0",
     "react-router-dom": "^7.1.1",
     "react-scripts": "5.0.1",
-    "receipt": "file:"
+    "receipt": "file:",
+    "xml2js": "^0.6.2"
   },
   "scripts": {
     "start": "react-scripts start",

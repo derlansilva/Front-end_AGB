@@ -3,7 +3,6 @@ import 'bootstrap/dist/css/bootstrap.min.css';
 
 const Header = () => {
   return (
-    <header className="bg-dark text-white p-3 position-fixed w-100" style={{ zIndex: 1050 }}>
       <div className="container-fluid d-flex justify-content-between align-items-center">
         <img src="/logo.png"
             className="me-2"
@@ -17,7 +16,9 @@ const Header = () => {
           </a>
         </nav>
       </div>
-    </header>
+    
+
+
   );
 };
 

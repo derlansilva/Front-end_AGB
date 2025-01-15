@@ -1,0 +1,59 @@
+/* Sidebar base */
+.sidebar {
+    width: 70px; /* Largura retraída */
+    height: 100vh;
+    background-color: #343a40; /* Cor escura */
+    color: white;
+    transition: width 0.3s ease; /* Transição suave */
+    overflow-x: hidden; /* Esconde conteúdo extra */
+    position: fixed;
+    top: 0;
+    left: 0;
+    z-index: 1000;
+  }
+  
+  .sidebar:hover {
+    width: 250px; /* Largura expandida ao hover */
+  }
+  
+  .sidebar-inner {
+    padding: 10px;
+  }
+  
+  h2 {
+    font-size: 1.2rem;
+    text-align: center;
+    margin-bottom: 1rem;
+    opacity: 0; /* Oculto por padrão */
+    transition: opacity 0.3s ease;
+  }
+  
+  .sidebar:hover h2 {
+    opacity: 1; /* Mostra ao hover */
+  }
+  
+  /* Links da Sidebar */
+  .list-group-item {
+    display: flex;
+    align-items: center;
+    justify-content: flex-start;
+    padding: 10px;
+    font-size: 1rem;
+    border: none;
+  }
+  
+  .list-group-item i {
+    font-size: 1.5rem;
+    margin-right: 10px;
+  }
+  
+  /* Texto dos links */
+  .link-text {
+    opacity: 0; /* Esconde o texto por padrão */
+    transition: opacity 0.3s ease; /* Transição suave */
+  }
+  
+  .sidebar:hover .link-text {
+    opacity: 1; /* Mostra o texto ao hover */
+  }
+  

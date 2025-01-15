@@ -1,75 +1,49 @@
-import React from 'react';
+import React, { useState } from 'react';
 
 import Button from 'react-bootstrap/Button';
 import Form from 'react-bootstrap/Form';
 
 const Manifest = () => {
+    const [fileContent , setFileContent] = useState("");
+    
+
+    const handleFileChange = (event ) => {
+        const file  = event.target.file[0];
+        if(file && file.type == "text/xml"){
+            const reader = new FileReader();
+
+            reader.onload = (e) => {
+                setFileContent(e.target.result);
+            };
+
+            reader.readAsText(file);
+        }else{
+            alert("Por favor , Selecione um arquivo XML valido ");
+        }
+    }
   return (
     <div className="container mt-5">
-    <h2 className="mb-4">Cadastro de Produto</h2>
+    <h2 className="mb-4">Gerar Manifesto</h2>
     
-      // Spinner de carregamento
-      <div className="d-flex justify-content-center">
-        <div className="spinner-border text-primary" role="status">
-          <span className="visually-hidden">Loading...</span>
-        </div>
-      </div>
+    
    
-      <form>
-        <div className="mb-3">
-          <label htmlFor="productName" className="form-label">Nome do Produto</label>
-          <input
-            type="text"
-            className="form-control"
-            id="productName"
-            placeholder="Digite o nome do produto"
-            required
-           
-          />
+    <div className="container">
+      <h3>Upload de Arquivo XML</h3>
+      <div className="mb-3">
+        <input
+          type="file"
+          accept=".xml"
+          onChange={handleFileChange}
+          className="form-control"
+        />
+      </div>
+      {fileContent && (
+        <div>
+          <h4>Conteúdo do Arquivo:</h4>
+          <pre>{fileContent}</pre>
         </div>
-
-        <div className="mb-3">
-          <label htmlFor="description" className="form-label">Descrição</label>
-          <textarea
-            className="form-control"
-            id="description"
-            rows="3"
-            placeholder="Digite uma descrição do produto"
-            required
-      
-          ></textarea>
-        </div>
-
-        <div className="mb-3">
-          <label htmlFor="price" className="form-label">Preço</label>
-          <input
-            type="number"
-            className="form-control"
-            id="price"
-            placeholder="Digite o preço do produto"
-            required
-        
-          />
-        </div>
-
-        <div className="mb-3">
-          <label htmlFor="category" className="form-label">Categoria</label>
-          <select
-            className="form-select"
-            id="category"
-            required
-            
-          >
-            <option value="">Selecione a categoria</option>
-            <option value="eletronicos">Eletrônicos</option>
-            <option value="roupas">Roupas</option>
-            <option value="alimentos">Alimentos</option>
-            <option value="outros">Outros</option>
-          </select>
-        </div>
-
-        <button type="submit" className="btn btn-primary">Cadastrar Produto</button>
-      </form>
+      )}
+    </div>
     
   </div>
   );

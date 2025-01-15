@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom'; // Importando o hook useNavigate
 import 'bootstrap/dist/css/bootstrap.min.css';
 
-const ProductForm = () => {
+const Product = () => {
   const navigate = useNavigate(); // Hook para navegação programática
   const [productName, setProductName] = useState('');
   const [description, setDescription] = useState('');
@@ -33,13 +33,13 @@ const ProductForm = () => {
         </div>
       ) : (
         <form onSubmit={handleSubmit}>
-          <div className="mb-3">
-            <label htmlFor="productName" className="form-label">Nome do Produto</label>
+            <div className="mb-3">
+            <label htmlFor="productName" className="form-label">Condigo do produto</label>
             <input
               type="text"
               className="form-control"
               id="productName"
-              placeholder="Digite o nome do produto"
+              placeholder="Digite o codigo do produto"
               required
               value={productName}
               onChange={(e) => setProductName(e.target.value)}
@@ -96,4 +96,4 @@ const ProductForm = () => {
   );
 };
 
-export default ProductForm;
+export default Product;

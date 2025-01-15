@@ -16,7 +16,7 @@ const Sidebar = () => {
         <li className="nav-item">
           <Link href="/products" className="nav-link text-white">
             Adicionar Produto
-          </Link>
+          </Link    >
         </li>
         <li className="nav-item">
           <a href="#about" className="nav-link text-white">
