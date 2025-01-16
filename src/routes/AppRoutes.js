@@ -8,11 +8,9 @@ import 'bootstrap/dist/css/bootstrap.min.css';
 import { BrowserRouter as Router, Route, Routes } from 'react-router-dom'
 import Home from "../pages/Home";
 import Login from "../pages/Login";
-import Sidebar from "../components/Sidebar";
 import Manifest from "../pages/Manifest";
-import Header from "../components/Header";
 import Product from "../pages/Products";
-import Conferencia from "../pages/Conferencia";
+import Conference from "../pages/Conference";
 
 const AppRoutes = () => {
     return (
@@ -23,7 +21,7 @@ const AppRoutes = () => {
 
                     <Route path="manifest" element={<Manifest />} />
                     <Route path="products" element={<Product />} />
-                    <Route path="conferencia" element={<Conferencia/>}/>
+                    <Route path="conferencia" element={<Conference/>}/>
                 </Route>
 
             </Routes>
