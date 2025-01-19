@@ -3,9 +3,9 @@ import React, { useState } from "react";
 
 import 'bootstrap/dist/css/bootstrap.min.css';
 
+
 import { Link, Outlet, NavLink } from 'react-router-dom';
-import Sidebar from "../components/Sidebar";
-import ProductForm from "./Products";
+
 import "./styles/Home.css";
 
 

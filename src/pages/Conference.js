@@ -13,10 +13,7 @@ function Conference() {
     console.log(window.Electron)
   })
   const startConference = async () => {
-    console.log(" electron rodando " , window.Electron)
-    /*try{
-      const result = await window.Electron.run
-    }*/
+    
   }
 
   // Função para alternar a seleção de manifestos
@@ -42,7 +39,7 @@ function Conference() {
 
   return (
     <div className="container mt-4">
-      <h1 className="mb-3">Página de Conferência</h1>
+      <h1 className="mb-3">manifestos em aberto</h1>
 
       {/* Tabela com os manifestos */}
       <table className="table table-bordered table-striped">

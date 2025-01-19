@@ -12,6 +12,9 @@ import Manifest from "../pages/Manifest";
 import Product from "../pages/Products";
 import Conference from "../pages/Conference";
 
+//const root = ReactDOM.createRoot(document.getElementById('root'));
+
+
 const AppRoutes = () => {
     return (
         <Router>
