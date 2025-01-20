@@ -17,7 +17,7 @@ const Login = () => {
         // Simula um carregamento de 2 segundos
         setTimeout(() => {
             setLoading(false); // Desativa o spinner
-            navigate('/home'); // Redireciona para a Home após 2 segundos
+            navigate('/'); // Redireciona para a Home após 2 segundos
         }, 2000);
 
     

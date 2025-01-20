@@ -1,0 +1,117 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<notaFiscal xmlns="http://www.portalfiscal.inf.br/nfe" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+  <infNFe Id="NFe35190612345678000123550010000012341234567890" versao="4.00">
+    <ide>
+      <cUF>35</cUF>
+      <cNF>123456</cNF>
+      <natOp>Venda de mercadoria</natOp>
+      <mod>55</mod>
+      <serie>1</serie>
+      <nNF>12345</nNF>
+      <dhEmi>2019-06-12T14:00:00-03:00</dhEmi>
+      <tpNF>1</tpNF>
+      <idDest>1</idDest>
+      <cMunFG>3550308</cMunFG>
+      <tpImp>1</tpImp>
+      <tpEmis>1</tpEmis>
+      <cDV>5</cDV>
+    </ide>
+    <emit>
+      <CNPJ>12345678000123</CNPJ>
+      <xNome>O Boticário</xNome>
+      <xFant>O Boticário</xFant>
+      <enderEmit>
+        <xLgr>Rua X, 123</xLgr>
+        <xBairro>Centro</xBairro>
+        <cMun>3550308</cMun>
+        <xMun>São Paulo</xMun>
+        <UF>SP</UF>
+        <CEP>12345678</CEP>
+      </enderEmit>
+    </emit>
+    <det nItem="1">
+      <prod>
+        <cProd>12345</cProd>
+        <xProd>Perfume Egeo</xProd>
+        <NCM>33030010</NCM>
+        <CFOP>5101</CFOP>
+        <uCom>un</uCom>
+        <qCom>2.0000</qCom>
+        <vUnCom>100.00</vUnCom>
+        <vProd>200.00</vProd>
+        <cEAN></cEAN>
+        <cEANTrib></cEANTrib>
+      </prod>
+      <imposto>
+        <ICMS>
+          <ICMS00>
+            <orig>0</orig>
+            <CST>00</CST>
+            <modBC>0</modBC>
+            <vBC>200.00</vBC>
+            <pICMS>18.00</pICMS>
+            <vICMS>36.00</vICMS>
+          </ICMS00>
+        </ICMS>
+        <PIS>
+          <PISAliq>
+            <CST>01</CST>
+            <vBC>200.00</vBC>
+            <pPIS>1.65</pPIS>
+            <vPIS>3.30</vPIS>
+          </PISAliq>
+        </PIS>
+        <COFINS>
+          <COFINSAliq>
+            <CST>01</CST>
+            <vBC>200.00</vBC>
+            <pCOFINS>7.60</pCOFINS>
+            <vCOFINS>15.20</vCOFINS>
+          </COFINSAliq>
+        </COFINS>
+      </imposto>
+    </det>
+    <det nItem="2">
+      <prod>
+        <cProd>67890</cProd>
+        <xProd>Loção Corporal Cuide-se Bem</xProd>
+        <NCM>33049990</NCM>
+        <CFOP>5101</CFOP>
+        <uCom>un</uCom>
+        <qCom>1.0000</qCom>
+        <vUnCom>25.00</vUnCom>
+        <vProd>25.00</vProd>
+        <cEAN></cEAN>
+        <cEANTrib></cEANTrib>
+      </prod>
+      <imposto>
+        <ICMS>
+          <ICMS00>
+            <orig>0</orig>
+            <CST>00</CST>
+            <modBC>0</modBC>
+            <vBC>25.00</vBC>
+            <pICMS>18.00</pICMS>
+            <vICMS>4.50</vICMS>
+          </ICMS00>
+        </ICMS>
+        <PIS>
+          <PISAliq>
+            <CST>01</CST>
+            <vBC>25.00</vBC>
+            <pPIS>1.65</pPIS>
+            <vPIS>0.41</vPIS>
+          </PISAliq>
+        </PIS>
+        <COFINS>
+          <COFINSAliq>
+            <CST>01</CST>
+            <vBC>25.00</vBC>
+            <pCOFINS>7.60</pCOFINS>
+            <vCOFINS>1.90</vCOFINS>
+          </COFINSAliq>
+        </COFINS>
+      </imposto>
+    </det>
+  </infNFe>
+</notaFiscal>

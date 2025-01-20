@@ -1,91 +1,98 @@
 import React, { useEffect, useState } from "react";
+import apiServices from "../services/apiServices";
 
 
 function Conference() {
-  const [manifestos, setManifestos] = useState([
-    { id: 1, numero: "MAN001", quantidade: 50 },
-    { id: 2, numero: "MAN002", quantidade: 30 },
-    { id: 3, numero: "MAN003", quantidade: 70 },
-  ]);
-  const [selectedManifestos, setSelectedManifestos] = useState([]);
 
-  useEffect( () => {
-    console.log(window.Electron)
-  })
-  const startConference = async () => {
-    
-  }
+    const [manifest, setManifest] = useState([]);
+    const [selectedManifests, setSelectedManifests] = useState([]);
+    const [error, setError] = useState(null);
 
-  // Função para alternar a seleção de manifestos
-  const toggleSelectManifesto = (id) => {
-    setSelectedManifestos((prev) =>
-      prev.includes(id) ? prev.filter((mid) => mid !== id) : [...prev, id]
+    useEffect(() => {
+      const fetchManifest = async () => {
+        try {
+
+          const data = await apiServices.getManifestActive();
+
+          console.log(data)
+          setManifest(data);
+
+        } catch (error) {
+          setError('Erro ao carregar manifestos.');
+        }
+
+      };
+
+      fetchManifest();
+    }, [])
+
+  
+  // Função para alternar seleção de um manifesto
+  const toggleSelection = (id) => {
+    setSelectedManifests((prevSelected) =>
+      prevSelected.includes(id)
+        ? prevSelected.filter((manifestId) => manifestId !== id) // Deseleciona
+        : [...prevSelected, id] // Seleciona
     );
   };
 
-  // Função para iniciar a conferência
-  const handleStartConferencia = () => {
-    startConference()
-    const selectedNumbers = manifestos
-      .filter((m) => selectedManifestos.includes(m.id))
-      .map((m) => m.numero)
-      .join(", ");
-      
-    alert(`Iniciando conferência para os manifestos: ${selectedNumbers}`);
-    const command = `C:\receipt\assets\program.exe ${selectedManifestos}`
+  // Verifica se um manifesto está selecionado
+  const isSelected = (id) => selectedManifests.includes(id);
 
-
+  const startConference = () => {
+    alert(`Conferência iniciada para os manifestos: ${selectedManifests.join(', ')}`);
   };
 
   return (
     <div className="container mt-4">
-      <h1 className="mb-3">manifestos em aberto</h1>
+      <h1 className="mb-4">manifestos em aberto</h1>
+      {error && <p className="text-danger text-center">{error}</p>}
 
       {/* Tabela com os manifestos */}
-      <table className="table table-bordered table-striped">
-        <thead className="table-dark">
+      <div className="table-responsive"
+        style={{ maxHeight: '300px', overflowY: 'auto', border: '1px solid #ddd' }}>
+      <table className="table table-striped table-bordered">
+        
+        <thead className="thead-light">
           <tr>
-            <th>Manifesto</th>
-            <th>Quantidade</th>
-            <th>Selecionar</th>
+            <th scope="col">Selecionar</th>
+            <th scope="col">Número do Manifesto</th>
+            <th scope="col">Quantidade de Itens</th>
           </tr>
         </thead>
         <tbody>
-          {manifestos.map((manifesto) => (
-            <tr
-              key={manifesto.id}
-              className={
-                selectedManifestos.includes(manifesto.id) ? "table-primary" : ""
-              }
-            >
-              <td>{manifesto.numero}</td>
-              <td>{manifesto.quantidade}</td>
-              <td>
-                <button
-                  className="btn btn-outline-primary"
-                  onClick={() => toggleSelectManifesto(manifesto.id)}
-                >
-                  {selectedManifestos.includes(manifesto.id)
-                    ? "Desmarcar"
-                    : "Selecionar"}
-                </button>
+          {manifest.map((manifest) => (
+            <tr key={manifest.id}>
+              <td className="text-center">
+                <input
+                  type="checkbox"
+                  checked={isSelected(manifest.id)}
+                  onChange={() => toggleSelection(manifest.id)}
+                />
               </td>
+              <td style={{ textAlign: 'center' }}>{manifest.manifestName}</td>
+              <td style={{ textAlign: 'center' }}>{manifest.quantity || 0}</td>
             </tr>
           ))}
         </tbody>
       </table>
 
+      </div>
+
       {/* Botão "Iniciar Conferência" */}
-      {selectedManifestos.length > 0 && (
-        <div className="mt-3">
+      
+      {selectedManifests.length > 0 && (
+        <div className="mt-4">
           <button
-            className="btn btn-success"
-            onClick={handleStartConferencia}
+            onClick={startConference}
+            className="btn btn-primary btn-lg"
           >
             Iniciar Conferência
           </button>
         </div>
       )}
+      
+      
     </div>
   );
 }
