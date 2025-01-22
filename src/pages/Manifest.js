@@ -1,28 +1,28 @@
-
 import React, { useState } from 'react';
 import apiServices from '../services/apiServices';
 import { Button, Modal } from 'bootstrap';
-
+import ModalSpinner from '../components/ModalSpinner/ModalSpinner';
 
 const Manifest = () => {
-  const [products, setProducts] = useState([])
+  const [products, setProducts] = useState([]);
   const [showModal, setShowModal] = useState(false);
   const [isReadyToSend, setIsReadyToSend] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
   const [message, setMessage] = useState("");
+  const [loading, setLoading] = useState(false);
+  const [manifestNumber, setManifestNumber] = useState(null); // Novo estado para o número do manifesto
+  const [listProducts , setListProducts ] = useState([])
 
+  //funcão para leitura de xml
   const handleFileUpload = (event) => {
     const files = event.target.files;
     const parser = new DOMParser();
     const allProducts = [];
 
-
-
     Array.from(files).forEach((file, fileIndex) => {
       const reader = new FileReader();
 
       reader.onload = (e) => {
-
         const xml = parser.parseFromString(e.target.result, "application/xml");
         const items = Array.from(xml.getElementsByTagName("det")).map((item) => {
           const cProd = item.getElementsByTagName("cProd")[0]?.textContent || "";
@@ -42,15 +42,14 @@ const Manifest = () => {
     });
   };
 
-
+  //enviar os dados ao backend
   const sendDataToBackend = async () => {
-
     const jsonData = {
       products: products.map(product => ({
         code: product.code,
         description: product.description,
         quantity: Number(product.quantity).toFixed(2),
-        price: Number(product.price ).toFixed(2)|| 0, // Defina um preço padrão caso não exista
+        price: Number(product.price).toFixed(2) || 0, // Defina um preço padrão caso não exista
       })),
       timestamp: new Date().toISOString(),
     };
@@ -60,15 +59,25 @@ const Manifest = () => {
     setMessage("");
 
     try {
-
+      setLoading(true); 
       const response = await apiServices.createManifest(jsonData);
-      setMessage(`Manifesto criado`);
 
-      console.log(response.data)
+      console.log("retorno do backend " , response)
+      
+      const request = await apiServices.getManifestById(response.id);
+      console.log(request)
+    
+        setListProducts(request.products)
+      
+      setTimeout(() => {
+        setLoading(false); // Desativar o spinner após 2 segundos
+        setManifestNumber(response.manifestName); // Gerando um número fictício para o manifesto
+      }, 2000);
+
+
+      //console.log(response.data)
 
       setShowModal(false);
-
-      
     } catch (error) {
       console.error('Erro ao enviar dados para o backend:', error);
 
@@ -79,74 +88,75 @@ const Manifest = () => {
       setIsLoading(false); // Desativa o spinner
       products.length = 0;
     }
-
   };
 
+  const totalQuantity = products.reduce((acc, product) => acc + parseFloat(product.quantity), 0);
 
-  const totalQuantity = products.reduce((acc, product) => acc + product.quantity, 0)
-
+  const resetForm = () => {
+    setProducts([]);
+    setManifestNumber(null); // Resetando o número do manifesto
+    setIsReadyToSend(false); // Resetando a possibilidade de enviar
+  };
 
   return (
     <div className="container mt-5">
-      <h2 className="mb-4">Gerar Manifesto</h2>
+      <h2 className="mb-4">Manifesto</h2>
 
+      {/* Formulário de Upload de Arquivo */}
+      {!manifestNumber && (
+        <div className="container">
+          <div className="container mt-4">
+            <div className="form-group">
+              <label htmlFor="file-upload" className="form-label">Escolher Arquivo XML</label>
+              <input
+                className="form-control"
+                type="file"
+                id="formFileDisabled"
+                accept=".xml"
+                onChange={handleFileUpload}
+                multiple
+              />
+            </div>
 
-
-      <div className="container">
-        <div className="container mt-4">
-          <div className="form-group">
-            <label htmlFor="file-upload" className="form-label">Escolher Arquivo XML</label>
-            <input
-              class="form-control"
-              type="file"
-              id="formFileDisabled"
-              accept=".xml"
-              className="form-control"
-              onChange={handleFileUpload}
-              multiple
-            ></input>
-
-          </div>
-
-          <div className="mt-3">
-            {products.length > 0 && (
-              <>
-                <div style={{ maxHeight: '300px', overflowY: 'auto' }} >
-                  <table className="table table-bordered table-striped">
-                    <thead className="table-dark">
-                      <tr>
-                        <th>Item</th>
-                        <th>Descrição</th>
-                        <th>Quantidade</th>
-                      </tr>
-                    </thead>
-                    <tbody>
-                      {products.map((product, index) => (
-                        <tr key={index}>
-                          <td>{product.code}</td>
-                          <td>{product.description}</td>
-                          <td>{product.quantity}</td>
+            <div className="mt-3">
+              {products.length > 0 && (
+                <>
+                  <div style={{ maxHeight: '300px', overflowY: 'auto' }} >
+                    <table className="table table-bordered table-striped">
+                      <thead className="table-dark">
+                        <tr>
+                          <th>Item</th>
+                          <th>Descrição</th>
+                          <th>Quantidade</th>
                         </tr>
-                      ))}
-                    </tbody>
-                  </table>
-                </div>
-                <div className="mt-4">
-                  {isReadyToSend && (
-                    <button onClick={() => setShowModal(true)}>
-                      Iniciar Conferência
-                    </button>
-                  )}
-                  <span><strong>Total Quantidade:</strong> {totalQuantity}</span>
-                </div>
-              </>
-            )}
-
+                      </thead>
+                      <tbody>
+                        {products.map((product, index) => (
+                          <tr key={index}>
+                            <td>{product.code}</td>
+                            <td>{product.description}</td>
+                            <td>{product.quantity}</td>
+                          </tr>
+                        ))}
+                      </tbody>
+                    </table>
+                  </div>
+                  <div className="mt-4">
+                    {isReadyToSend && (
+                      <button 
+                        className='btn btn-primary'
+                        onClick={() => setShowModal(true)}>
+                        Gerar manifesto
+                      </button>
+                    )}
+                    <span><strong>Total Quantidade:</strong> {totalQuantity}</span>
+                  </div>
+                </>
+              )}
+            </div>
           </div>
         </div>
-
-
-      </div>
+      )}
 
       {/* Modal de Confirmação */}
       {showModal && (
@@ -163,7 +173,7 @@ const Manifest = () => {
               </button>
             </div>
             <div className="modal-body" style={modalBodyStyle}>
-              <p>Tem certeza que deseja gerar o manifesto com os items?</p>
+              <p>Tem certeza que deseja gerar o manifesto com os itens?</p>
               <table className="table table-bordered table-striped">
                 <thead>
                   <tr>
@@ -202,17 +212,41 @@ const Manifest = () => {
           </div>
         </div>
       )}
-      {/* Spinner */}
-      {isLoading && (
-        <div className="spinner">
-          {/* Pode ser um spinner de sua escolha */}
-          <div className="loading-spinner"></div>
-        </div>
+      
+      {/* Modal Spinner */}
+      {loading && (
+        <ModalSpinner />
       )}
 
-      {/* Mensagem de sucesso */}
-      {message && <div className="success-message">{message}</div>}
-
+      {/* Exibir o manifesto gerado */}
+      {manifestNumber && (
+        <div className="mt-4">
+          <h4>Manifesto nº {manifestNumber} gerado</h4>
+          <div style={{ maxHeight: '300px', overflowY: 'auto' }}>
+            <table className="table table-bordered table-striped">
+              <thead className="table-dark">
+                <tr>
+                  <th>Item</th>
+                  <th>Descrição</th>
+                  <th>Quantidade</th>
+                </tr>
+              </thead>
+              <tbody>
+                {listProducts.map((product, index) => (
+                  <tr key={index}>
+                    <td>{product.code}</td>
+                    <td>{product.description}</td>
+                    <td>{product.quantity}</td>
+                  </tr>
+                ))}
+              </tbody>
+            </table>
+          </div>
+          <button className="btn btn-primary" onClick={resetForm}>
+            Gerar Novo Manifesto
+          </button>
+        </div>
+      )}
     </div>
   );
 };

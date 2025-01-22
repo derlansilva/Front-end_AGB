@@ -11,6 +11,7 @@ import Login from "../pages/Login";
 import Manifest from "../pages/Manifest";
 import Product from "../pages/Products";
 import Conference from "../pages/Conference";
+import User from "../pages/Users";
 
 //const root = ReactDOM.createRoot(document.getElementById('root'));
 
@@ -25,6 +26,7 @@ const AppRoutes = () => {
                     <Route path="manifest" element={<Manifest />} />
                     <Route path="products" element={<Product />} />
                     <Route path="conferencia" element={<Conference/>}/>
+                    <Route path="/user" element={<User/>}/>
                 </Route>
 
             </Routes>
