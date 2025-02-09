@@ -17,6 +17,12 @@ const apiServices ={
         const response = await api.post('/manifest/create' , manifest);
 
         return response.data;
+    },
+
+    getProductById : async (id) => {
+        const response= await api.get(`/controller/product/${id}`)
+
+        return response.data;
     }
 }
 

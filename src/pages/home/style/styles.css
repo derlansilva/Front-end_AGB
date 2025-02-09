@@ -1,0 +1,75 @@
+/* Reset */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+  }
+  
+  body {
+    font-family: Arial, sans-serif;
+  }
+  
+  
+  
+ 
+
+  
+  .main {
+    background: #f8f9fa;
+    padding: 5px; /* Apenas um pequeno espaço para não ficar grudado */
+    border-radius: 0;
+    margin: 0; /* Remove todas as margens */
+    width: 100%;
+    height: 100%;
+  }
+
+  /* Layout principal */
+.layout {
+  display: flex;
+  flex-direction: column; /* Header na parte de cima */
+  height: 100vh; /* Tela inteira */
+}
+
+/* Container abaixo do Header que divide Sidebar e Section */
+.main-container {
+  display: flex;
+  flex: 1; /* Ocupa todo o espaço restante abaixo do Header */
+  margin-top: 60px; /* Deixa espaço para o Header */
+}
+
+
+/* Header fixo */
+.header {
+  height: 40px;
+  background-color: #343a40;
+  color: white;
+  display: flex;
+  align-items: center;
+  padding: 0 20px;
+  width: 100%;
+  position: fixed;
+  top: 0;
+  left: 0;
+  z-index: 2;
+}
+
+/* Sidebar fixo com largura de 10% */
+.sidebar {
+  width: 10%;
+  height: 100%;
+  position: fixed;
+  top: 40px; /* Fica logo abaixo do header */
+  left: 0;
+  overflow-y: auto;
+  padding-top: 10px;
+}
+
+/* Conteúdo ocupando 90% */
+.content {
+  width: 90%;
+  margin-left: 10%;
+  padding: 20px;
+  background-color: #f8f9fa;
+  overflow-y: auto;
+  height: calc(100vh - 30px); /* Ajustado para nova altura */
+}

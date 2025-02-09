@@ -36,7 +36,7 @@
         <NCM>33030010</NCM>
         <CFOP>5101</CFOP>
         <uCom>un</uCom>
-        <qCom>3.0000</qCom>
+        <qCom>3</qCom>
         <vUnCom>150.00</vUnCom>
         <vProd>450.00</vProd>
         <cEAN></cEAN>
@@ -78,7 +78,7 @@
         <NCM>33049990</NCM>
         <CFOP>5101</CFOP>
         <uCom>un</uCom>
-        <qCom>5.0000</qCom>
+        <qCom>500</qCom>
         <vUnCom>35.00</vUnCom>
         <vProd>175.00</vProd>
         <cEAN></cEAN>

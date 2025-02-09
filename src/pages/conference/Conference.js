@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
-import apiServices from "../services/apiServices";
-import ConferenceModal from "../components/Modal/ConferenceModal";
-
+import apiServices from "../../services/apiServices";
+import ConferenceModal from "../../components/Modal/ConferenceModal";
+import "./styles/Conference.css"
 
 function Conference() {
 
@@ -74,7 +74,7 @@ function Conference() {
   };
 
   return (
-    <div className="container mt-4">
+    <div className="container conference bg-light">
       <h1 className="mb-4">manifestos em aberto</h1>
       {error && <p className="text-danger text-center">{error}</p>}
 

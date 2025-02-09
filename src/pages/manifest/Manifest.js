@@ -1,7 +1,8 @@
 import React, { useState } from 'react';
-import apiServices from '../services/apiServices';
+import apiServices from '../../services/apiServices';
 import { Button, Modal } from 'bootstrap';
-import ModalSpinner from '../components/ModalSpinner/ModalSpinner';
+import ModalSpinner from '../../components/ModalSpinner/ModalSpinner';
+import "./styles/Manifest.css"
 
 const Manifest = () => {
   const [products, setProducts] = useState([]);
@@ -11,13 +12,15 @@ const Manifest = () => {
   const [message, setMessage] = useState("");
   const [loading, setLoading] = useState(false);
   const [manifestNumber, setManifestNumber] = useState(null); // Novo estado para o número do manifesto
-  const [listProducts , setListProducts ] = useState([])
+  const [listProducts, setListProducts] = useState([])
+  const [fileNames , setFileNames] = useState([])
 
   //funcão para leitura de xml
   const handleFileUpload = (event) => {
     const files = event.target.files;
     const parser = new DOMParser();
     const allProducts = [];
+    const fileNames = Array.from(files).map(file => file.name);
 
     Array.from(files).forEach((file, fileIndex) => {
       const reader = new FileReader();
@@ -36,6 +39,7 @@ const Manifest = () => {
         if (fileIndex === files.length - 1) {
           setProducts((prev) => [...prev, ...allProducts]);
           setIsReadyToSend(true);
+          setFileNames((prev) => [...prev, ...fileNames])
         }
       };
       reader.readAsText(file);
@@ -48,7 +52,7 @@ const Manifest = () => {
       products: products.map(product => ({
         code: product.code,
         description: product.description,
-        quantity: Number(product.quantity).toFixed(2),
+        quantity: parseInt(product.quantity),
         price: Number(product.price).toFixed(2) || 0, // Defina um preço padrão caso não exista
       })),
       timestamp: new Date().toISOString(),
@@ -59,16 +63,16 @@ const Manifest = () => {
     setMessage("");
 
     try {
-      setLoading(true); 
+      setLoading(true);
       const response = await apiServices.createManifest(jsonData);
 
-      console.log("retorno do backend " , response)
-      
+      console.log("retorno do backend ", response.itemManifest)
+
       const request = await apiServices.getManifestById(response.id);
       console.log(request)
-    
-        setListProducts(request.products)
-      
+
+      setListProducts(response.itemManifest)
+
       setTimeout(() => {
         setLoading(false); // Desativar o spinner após 2 segundos
         setManifestNumber(response.manifestName); // Gerando um número fictício para o manifesto
@@ -96,26 +100,31 @@ const Manifest = () => {
     setProducts([]);
     setManifestNumber(null); // Resetando o número do manifesto
     setIsReadyToSend(false); // Resetando a possibilidade de enviar
+    setFileNames([])
   };
 
   return (
-    <div className="container mt-5">
-      <h2 className="mb-4">Manifesto</h2>
+    <div className="container manifest">
+      <h4 className="mb-4">Criar Manifesto</h4>
 
       {/* Formulário de Upload de Arquivo */}
       {!manifestNumber && (
         <div className="container">
           <div className="container mt-4">
-            <div className="form-group">
-              <label htmlFor="file-upload" className="form-label">Escolher Arquivo XML</label>
+            <div className="form-group file-upload-container">
+              <label htmlFor="file-upload" className="form-label file-upload-btn">Escolher Arquivo XML</label>
               <input
-                className="form-control"
+                className="form-control file-upload-input"
                 type="file"
-                id="formFileDisabled"
+                id="file-upload"
                 accept=".xml"
                 onChange={handleFileUpload}
                 multiple
               />
+
+              <span className="file-name">
+              {fileNames.length > 0 ? fileNames.join(", ") : "Nenhum arquivo selecionado"}
+              </span>
             </div>
 
             <div className="mt-3">
@@ -143,7 +152,7 @@ const Manifest = () => {
                   </div>
                   <div className="mt-4">
                     {isReadyToSend && (
-                      <button 
+                      <button
                         className='btn btn-primary'
                         onClick={() => setShowModal(true)}>
                         Gerar manifesto
@@ -161,19 +170,20 @@ const Manifest = () => {
       {/* Modal de Confirmação */}
       {showModal && (
         <div className="modal-overlay" style={modalOverlayStyle}>
-          <div className="modal-container" style={modalContainerStyle}>
-            <div className="modal-header" style={modalHeaderStyle}>
-              <span>Confirmar geração</span>
-              <button
-                className="close-button"
-                onClick={() => setShowModal(false)}
-                style={closeButtonStyle}
-              >
-                X
-              </button>
-            </div>
-            <div className="modal-body" style={modalBodyStyle}>
-              <p>Tem certeza que deseja gerar o manifesto com os itens?</p>
+        <div className="modal-container">
+          <div className="modal-header">
+            <span>Confirmar geração</span>
+            <button
+              className="close-button"
+              onClick={() => setShowModal(false)}
+              style={closeButtonStyle}
+            >
+              X
+            </button>
+          </div>
+          <div className="modal-body">
+            <p>Tem certeza que deseja gerar o manifesto com os itens?</p>
+            <div className="table-container">
               <table className="table table-bordered table-striped">
                 <thead>
                   <tr>
@@ -193,26 +203,29 @@ const Manifest = () => {
                 </tbody>
               </table>
             </div>
-            <div className="modal-footer" style={modalFooterStyle}>
-              <button
-                className="cancel-button btn btn-danger"
-                onClick={() => setShowModal(false)}
-                style={cancelButtonStyle}
-              >
-                Cancelar
-              </button>
-              <button
-                className="confirm-button btn btn-success"
-                onClick={sendDataToBackend}
-                style={confirmButtonStyle}
-              >
-                Confirmar
-              </button>
-            </div>
+          </div>
+          
+          <div className="modal-footer">
+            <button
+              className="cancel-button btn btn-danger"
+              onClick={() => setShowModal(false)}
+              style={cancelButtonStyle}
+            >
+              Cancelar
+            </button>
+            <button
+              className="confirm-button btn btn-success"
+              onClick={sendDataToBackend}
+              style={confirmButtonStyle}
+            >
+              Confirmar
+            </button>
           </div>
         </div>
-      )}
+      </div>
       
+      )}
+
       {/* Modal Spinner */}
       {loading && (
         <ModalSpinner />
