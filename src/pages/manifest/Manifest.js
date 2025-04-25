@@ -104,6 +104,7 @@ const Manifest = () => {
   };
 
   return (
+    
     <div className="container manifest">
       <h4 className="mb-4">Criar Manifesto</h4>
 

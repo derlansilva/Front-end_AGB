@@ -75,7 +75,10 @@ function Conference() {
 
   return (
     <div className="container conference bg-light">
-      <h1 className="mb-4">manifestos em aberto</h1>
+      <div className="header-manifest ">
+        <span className="mb-4 text-dark">manifestos em aberto</span>
+      </div>
+      
       {error && <p className="text-danger text-center">{error}</p>}
 
       {/* Tabela com os manifestos */}

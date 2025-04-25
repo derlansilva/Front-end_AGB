@@ -1,0 +1,72 @@
+/* src/App.css */
+  /* Remove a borda azulada no foco dos inputs */
+  input.form-control:focus, textarea.form-control:focus, select.form-control:focus {
+  outline: none !important;
+  box-shadow: none !important;
+}
+
+      
+body, html, #root {
+  height: 100%;
+  margin: 0;
+  padding: 0;
+  overflow: hidden;
+}
+
+/* Estilo para permitir rolagem quando necessário */
+html, body {
+  height: 100%;
+  margin: 0;
+}
+
+.container {
+  height: 100%;
+  max-height: 100vh; /* Permite rolagem até o tamanho da tela */
+  overflow-y: auto;  /* Habilita a rolagem vertical */
+}
+
+.app-container {
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+}
+
+.top-bar {
+  background-color: #212529;
+  padding: 10px 20px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  position: fixed;
+  top: 0;
+  width: 100%;
+  z-index: 10;
+}
+
+.top-bar input {
+  max-width: 250px;
+}
+
+.window-area {
+  flex: 1;
+  margin-top: 50px; /* altura do header */
+  overflow-y: auto;
+  padding: 15px;    
+}
+
+.window-card {
+  background: white;
+  border-radius: 10px;
+  margin-top: -20px;
+  position: relative;
+  margin-bottom: 20px;
+}
+
+.close-btn {
+  position: absolute;
+  top: 0;
+  right: 10px;
+  font-size: 18px;
+  padding: 2px 8px;
+  line-height: 1;
+}

@@ -1,429 +1,167 @@
-/* Estilo geral da página */
-.product-consultation {
-    max-width: 100%;
-    margin: 0 auto;
-    padding: 20px;
-    background-color: #fff;
-    border-radius: 8px;
-    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
-    font-family: Arial, sans-serif;
-  }
-  
-  /* Seção superior com duas colunas */
-  .top-section {
-    display: flex;
-    justify-content: space-between;
-    margin-bottom: 20px;
-  }
-  
-  .left-column {
-    width: 60%; /* A primeira coluna terá 60% da largura */
-  }
-  
-  .right-column {
-    width: 35%; /* A segunda coluna terá 35% da largura */
-    display: flex;
-    
-   
-  }
-
-  .right-column button{
-    width: 100%;
-    padding: 0;
-    height: 30px;
-    margin-top: 10px;
-    margin-left: 0;
-    
-  }
-  
-  .product-image {
-    max-width: 100%;
-    height: auto;
-    border-radius: 4px;
-    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
-  }
-  
-  /* Inputs e labels */
-  .input-group {
-    margin-bottom: 10px;
-  }
-  
-  .input-label {
-    font-size: 12px;
-    margin-bottom: 4px;
-    font-weight: bold;
-    display: block;
-  }
-  
-  .input-group input {
-    width: 100%;
-    font-size: 12px;
-    padding: 6px;
-    border: 1px solid #ccc;
-    border-radius: 4px;
-  }
-  
-  .input-group input:focus {
-    border-color: #0078d4; /* Azul claro de foco */
-    outline: none;
-  }
-  
-  /* Alinhamento lado a lado para Categoria e Preço */
-  .input-group-inline {
-    display: flex;
-    justify-content: space-between;
-    margin-top: 10px;
-  }
-  
-  .input-inline {
-    width: 48%; /* Cada campo terá 48% da largura */
-  }
-  
-  /* Tabela de histórico */
-  .history-section {
-    margin-top: 30px;
-  }
-  
-  .history-section h3 {
-    font-size: 1.2rem;
-    font-weight: bold;
-    margin-bottom: 15px;
-  }
-  
-  .history-table {
-    width: 100%;
-    border-collapse: collapse;
-  }
-  
-  .history-table th, .history-table td {
-    padding: 10px;
-    font-size: 12px;
-    text-align: left;
-    border: 1px solid #ddd;
-  }
-  
-  .history-table th {
-    background-color: #f4f4f4;
-    font-weight: bold;
-  }
-  
-  .history-table tr:nth-child(even) {
-    background-color: #f9f9f9;
-  }
-  
-  .history-table tr:hover {
-    background-color: #f1f1f1;
-  }
-  
-  /* Estilo para inputs */
-.input-group input {
-    width: 100%;
-    font-size: 12px;
-    padding: 6px;
-    border: 1px solid #ccc;
-    border-radius: 4px;
-    outline: none; /* Remove o contorno azul padrão */
-  }
-  
-  /* Estilo de foco customizado */
-  .input-group input:focus {
-    border-color: #ccc; /* Mantém a borda original ou pode definir outra cor */
-    box-shadow: none; /* Remove qualquer sombra de foco */
-  }
-  
-
-  /* Remove as setas do input do tipo number */
-input[type="number"]::-webkit-outer-spin-button,
-input[type="number"]::-webkit-inner-spin-button {
-  -webkit-appearance: none;  /* Remove as setas no Chrome, Safari e Opera */
+/* RESET E ESTRUTURA GERAL */
+* {
   margin: 0;
+  padding: 0;
+  box-sizing: border-box;
 }
 
-input[type="number"] {
-  -moz-appearance: textfield; /* Remove as setas no Firefox */
+html, body {
+  height: 100%;
+  font-family: 'Roboto', sans-serif;
+  background-color: #f0f2f5;
+  overflow-x: hidden;
 }
 
-#productCode{
-    width: 100px;
+/* CABEÇALHO E RODAPÉ */
+header, footer {
+  background-color: #007bff;
+  color: white;
+  padding: 10px;
+  text-align: center;
 }
 
-/* Estilo para inputs pequenos */
-.small-input {
-    width: 120px; /* Largura pequena para o input */
-    height: 30px; /* Altura do input pequena */
-    font-size: 12px; /* Tamanho da fonte pequeno */
-    padding: 4px 8px; /* Espaçamento dentro do input */
-    border: 1px solid #ccc; /* Cor da borda */
-    border-radius: 4px; /* Bordas arredondadas */
-    outline: none; /* Remove o contorno azul quando clicado */
-  }
-  
-  /* Remover as setas no input number */
-  input[type="number"]::-webkit-outer-spin-button,
-  input[type="number"]::-webkit-inner-spin-button {
-    -webkit-appearance: none;
-    margin: 0;
-  }
-  
-  input[type="number"] {
-    -moz-appearance: textfield;
-  }
-  
-  /* Contêiner para os dois inputs lado a lado */
-.input-group-inline {
-    display: flex;
-    justify-content: space-between; /* Distribui os inputs igualmente */
-    gap: 10px; /* Espaço entre os inputs */
-    margin-bottom: 10px; /* Margem inferior para os campos */
-  }
-  
-  /* Cada input dentro do grupo */
-  .input-inline {
-    flex: 1; /* Faz com que ambos os inputs tenham a mesma largura */
-  }
-  
-  /* Estilo dos inputs */
-  .small-input {
-    width: 100%; /* Faz os inputs ocuparem 100% do espaço disponível dentro de seu contêiner */
-    height: 30px;
-    font-size: 12px;
-    padding: 4px 8px;
-    border: 1px solid #ccc;
-    border-radius: 4px;
-    outline: none;
-  }
-  
-  /* Remover as setas no input number */
-  input[type="number"]::-webkit-outer-spin-button,
-  input[type="number"]::-webkit-inner-spin-button {
-    -webkit-appearance: none;
-    margin: 0;
-  }
-  
-  input[type="number"] {
-    -moz-appearance: textfield;
-  }
-  
+/* CONTAINER PRINCIPAL */
+.mb52-container {
+  display: flex;
+  flex-direction: column;
+  margin-top: 2px;
+}
 
-  /* Contêiner para os inputs */
-.input-group {
-    display: flex;
-    flex-direction: column; /* Empilha os inputs verticalmente */
-    gap: 10px; /* Espaço entre os campos */
-  }
+.mb52-content {
   
-  /* Cada campo dentro do contêiner */
-  .input-field {
-    display: flex;
-    flex-direction: column; /* Faz o label e o input ficarem um embaixo do outro */
-  }
+  padding: 20px;
+  border-radius: 8px;
+  flex: 1;
+}
+.mb52-content label{
   
-  /* Estilo dos inputs */
-  .small-input {
-    width: 200px; /* Defina o tamanho do input conforme necessário */
-    height: 30px;
-    font-size: 12px;
-    padding: 4px 8px;
-    border: 1px solid #ccc;
-    border-radius: 4px;
-    outline: none;
-  }
-  
-  /* Remover as setas no input number */
-  input[type="number"]::-webkit-outer-spin-button,
-  input[type="number"]::-webkit-inner-spin-button {
-    -webkit-appearance: none;
-    margin: 0;
-  }
-  
-  input[type="number"] {
-    -moz-appearance: textfield;
-  }
-  
+  width: 50px;
+}
+.mb52-content input{
+  margin-left: 10px;
+  width: 90%;
+}
 
-  .tab-buttons {
-    display: flex;
-    margin-bottom: 20px;
-  }
-  
-  .tab-button {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    height: 20px;
-    padding: 10px 20px;
-    margin-right: 10px;
-    cursor: pointer;
-    border: 1px solid #ccc;
-    background-color: #f8f9fa;
-    border-radius: 5px;
-  }
-  
-  .tab-button.active {
-    background-color: #007bff;
-    color: white;
-  }
-  
-  .tab-content {
-    padding: 20px;
-    border: 1px solid #ccc;
-    border-radius: 5px;
-  }
-  
+/* FORMULÁRIO */
+.form-section {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
 
-  .tab-buttons {
-    display: flex;
-    margin-bottom: 20px;
-  }
-  
-  .tab-button {
-    padding: 10px 20px;
-    margin-right: 10px;
-    cursor: pointer;
-    border: 1px solid #ccc;
-    background-color: #f8f9fa;
-    border-radius: 5px;
-  }
-  
-  .tab-button.active {
-    background-color: #007bff;
-    color: white;
-  }
-  
-  .tab-content {
-    padding: 20px;
-    border: 1px solid #ccc;
-    border-radius: 5px;
-  }
-  
-  .input-with-button {
-    display: flex; /* Flexbox para alinhar os elementos lado a lado */
-    align-items: center; /* Alinha o conteúdo verticalmente */
-  }
-  
-  .small-input {
-    width: calc(100% - 100px); /* Faz o input ocupar o espaço disponível */
-    padding: 2px;
-  }
-  
-  .search-button {
-    background-color: #007bff;
-    color: white;
-    border: none;
-    padding: 8px 15px;
-    font-size: 14px;
-    margin-left: 5px; /* Espaço entre o input e o botão */
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    border-radius: 5px;
-    cursor: pointer;
-    height: 30px;
-  }
-  
-  .search-button i {
-    margin-right: 5px; /* Espaço entre o ícone e o texto */
-  }
-  
-  .search-button:hover {
-    background-color: #0056b3;
-  }
-  
-
-  /* Container do arquivo */
-.custom-file-container {
-  position: relative;
+/* GRUPO PADRÃO */
+.form-group {
   display: flex;
   align-items: center;
-  justify-content: center;
-  height: 100%;
+  gap: 10px;
 }
 
-/* Input de arquivo escondido */
-.custom-file-input {
-  display: none; /* Escondendo o input real */
+/* GRUPO EM LINHA */
+.form-group-inline {
+  display: flex;
+  gap: 20px;
+  flex-wrap: wrap;
+  align-items: center;
 }
 
-/* Botão customizado de upload */
-.custom-file-input + label {
-  display: inline-block;
-  padding: 6px 12px;
-  background-color: #007bff;
-  color: white;
-  border-radius: 4px;
-  font-size: 14px;
-  cursor: pointer;
-  text-align: center;
-  width: 100%;
-  box-sizing: border-box;
-  height: calc(1.5em + 0.75rem + 2px); /* Tamanho igual aos outros inputs */
-  line-height: 1.5;
-}
-
-/* Hover para o botão de upload */
-.custom-file-input + label:hover {
-  background-color: #0056b3;
-}
-
-/* Foco no botão de upload */
-.custom-file-input:focus + label {
-  border-color: #80bdff;
-  outline: none;
-  box-shadow: 0 0 0 0.2rem rgba(38, 143, 255, 0.25);
-}
-
-/* Container do upload de arquivo */
-.upload-container {
-  position: relative;
-  display: inline-block;
-  width: 100%;
-}
-
-/* Estilo do botão de upload */
-.upload-btn {
-  display: inline-block;
-  background-color: #007bff;
-  color: white;
-  padding: 0.375rem 0.75rem;
-  border-radius: 0.25rem;
-  cursor: pointer;
-  font-size: 14px;
-  margin-bottom: 5px;
-  width: 100%;
-}
-
-/* Estilo do input de arquivo, sem borda e escondendo o botão original */
-.upload-input {
-  position: absolute;
-  top: 0;
-  left: 0;
-  opacity: 0; /* Torna o input invisível */
-  width: 100%;
-  height: 100%;
-  cursor: pointer;
-}
-
-/* Exibindo o nome do arquivo ou mensagem padrão */
-.file-name {
-  display: block;
-  margin-top: 5px;
-  color: #6c757d;
-  font-size: 14px;
-}
-
-/* Estilo de hover para o botão */
-.upload-btn:hover {
-  background-color: #0056b3;
-}
-
-/* Estilo de foco para o botão */
-.upload-btn:focus {
-  outline: none;
-  box-shadow: 0 0 0 0.2rem rgba(38, 143, 255, 0.5);
-}
-
-/* Garantir que os inputs fiquem na mesma altura */
-.d-flex .form-group {
-  margin-bottom: 0; /* Retira o espaço padrão entre os campos */
+.form-group-inline .form-group {
   flex: 1;
+}
+
+/* LABELS */
+label {
+  font-size: 0.9rem;
+  font-weight: bold;
+  white-space: nowrap;
+  width: 100px;
+}
+
+/* INPUTS */
+input, select, textarea {
+  padding: 4px 8px;  /* mais finos */
+  height: 28px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  font-size: 0.9rem;
+  width: 100%;
+  outline: none; /* remove borda feia ao focar */
+  transition: border-color 0.2s;
+}
+
+input:focus {
+  border-color: #007bff;
+}
+
+/* INPUT CÓDIGO COM WIDTH MENOR */
+#codigo {
+  width: 150px;
+}
+
+/* DESATIVADOS */
+#descricao,
+#preco,
+#categoria {
+  background-color: #e9ecef;
+  cursor: not-allowed;
+}
+
+/* REMOVE SETAS DO TYPE NUMBER */
+input[type="number"]::-webkit-inner-spin-button,
+input[type="number"]::-webkit-outer-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}
+input[type="number"] {
+  -moz-appearance: textfield;
+}
+
+/* TABELAS */
+table {
+  width: 100%;
+  border-collapse: collapse;
+  margin-top: 20px;
+}
+
+th, td {
+  padding: 10px;
+  border: 1px solid #ddd;
+  text-align: left;
+}
+
+th {
+  background-color: #f4f4f4;
+  font-weight: bold;
+}
+
+/* TABS */
+.tab-buttons {
+  display: flex;
+  gap: 10px;
+  margin-bottom: 20px;
+}
+
+.tab-button {
+  border: 1px solid #007bff;
+  background-color: #f8f9fa;
+  color: #007bff;
+  padding: 5px 20px;
+  border-radius: 5px;
+  cursor: pointer;
+  font-size: 0.8rem;
+  text-transform: uppercase;
+  transition: all 0.3s;
+}
+
+.tab-button:hover {
+  background-color: #e1ecff;
+}
+
+.tab-button.active {
+  background-color: #007bff;
+  color: white;
+}
+
+/* SCROLL */
+.scrollable-area {
+  overflow-y: auto;
 }
