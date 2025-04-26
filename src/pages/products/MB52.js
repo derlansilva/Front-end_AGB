@@ -1,8 +1,10 @@
 import React, { useState } from 'react';
 import 'bootstrap/dist/css/bootstrap.min.css';
-import "../pages/products/style/product.css";
+import "./style/product.css";
 import { format } from "date-fns";
 import { ptBR } from "date-fns/locale";
+import axios from 'axios';
+import apiService from "../../services/apiServices"
 
 const MB52 = () => {
   const [code, setCode] = useState('');
@@ -16,28 +18,39 @@ const MB52 = () => {
   const [images, setImages] = useState([]);
   const [occurrenceHistory, setOccurrenceHistory] = useState([]);
 
-  const fetchProduct = () => {
+  // Função para buscar produto através da API
+  const fetchProduct = async () => {
     if (!code.trim()) return;
 
-    setDescription(`Produto: ${code} - Camiseta Azul Básica`);
-    setPrice('49.90');
-    setCategory('Moda Masculina');
+    try {
+      // Substitua a URL pela da sua API real
+      const response = await apiService.getProductById(`${code}`);
+        
+    // Caso a consulta retorne dados válidos
+      if (response != null) {
 
-    setProduct({
-      quantity: 65,
-      reservedStock: 8,
-      totalStock: 57,
-      stockHistory: [
-        { date: '2025-04-15', type: 'entry', quantity: 50, balance: 50 },
-        { date: '2025-04-16', type: 'exit', quantity: -10, balance: 40 },
-        { date: '2025-04-17', type: 'exit', quantity: -5, balance: 35 },
-        { date: '2025-04-18', type: 'entry', quantity: 30, balance: 65 },
-      ],
-      stores: [
-        { name: 'Loja Centro', stock: 35 },
-        { name: 'Loja Norte', stock: 22 }
-      ]
-    });
+        console.log("to no if")
+        const productData = response.data;
+
+        setDescription(productData.description || `Produto: ${code}`);
+        setPrice(productData.price || '49.90');
+        
+        /*
+        setProduct({
+          quantity: productData.quantity || 0,
+          reservedStock: productData.reservedStock || 0,
+          totalStock: productData.totalStock || 0,
+          stockHistory: productData.stockHistory || [],
+          stores: productData.stores || []
+        });
+        */
+      } else {
+        alert('Produto não encontrado');
+      }
+    } catch (error) {
+      console.error('Erro ao buscar produto:', error);
+      alert('Erro ao buscar produto');
+    }
   };
 
   const handleKeyDown = (e) => {
@@ -229,12 +242,13 @@ const MB52 = () => {
                 value={code}
                 onChange={(e) => setCode(e.target.value)}
                 onKeyDown={handleKeyDown}
-                style={{ maxWidth: "200px"}}
+                style={{ maxWidth: "200px" }}
               />
             </div>
 
             <div className="form-group">
               <label htmlFor="description">Descrição</label>
+              
               <input
                 type="text"
                 id="description"

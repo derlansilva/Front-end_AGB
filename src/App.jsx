@@ -3,19 +3,23 @@ import "bootstrap/dist/css/bootstrap.min.css";
 import "bootstrap-icons/font/bootstrap-icons.css";
 import "./App.css";
 
-import MB52 from "./pages/MB52";
-import MB51 from "./pages/MB51";
-import MB50 from "./pages/MB50";
+import MB52 from "./pages/products/MB52";
+import MB51 from "./pages/manifest/MB51";
+import MB50 from "./pages/manifest/MB50";
 import ZM22 from "./pages/ZM22";
-import MB53 from "./pages/MB53";
+import MB53 from "./pages/manifest/MB53";
 import Login from "./components/login/Login";  // Importando o componente de login
+import PD01 from "./pages/order/PD01";
+import PD02 from "./pages/order/PD02";
 
 const componentMap = {
   mb52: { label: "MB52 - Consulta de Produtos", component: MB52 },
   mb51: { label: "MB51 - Inserir Arquivo ao Manifesto", component: MB51 },
   mb50: { label: "MB50 - Gerar Manifesto", component: MB50 },
   zm22: { label: "ZM22 - Cadastro e cosulta de usuarios", component: ZM22 },
-  mb53: { label: "MB53 -  Lista de manifestos ", component: MB53 },
+  mb53: { label: "MB53 - Lista de manifestos ", component: MB53 },
+  pd01: { label: "PD01 - Upload de pedidos ", component: PD01 },
+  pd02: { label: "PD01 - Upload de pedidos ", component: PD02 },
 };
 
 const App = () => {
@@ -84,7 +88,7 @@ const App = () => {
       {/* Se o usuário estiver logado, exibe a tela principal */}
       {isLoggedIn && (
         <>
-          {/* Top Bar */}
+          {/* Top Bar com os ícones */}
           <header
             className="bg-dark text-white px-3 d-flex justify-content-between align-items-center"
             style={{ height: "45px" }}
@@ -101,20 +105,92 @@ const App = () => {
             </div>
 
             <div className="d-flex align-items-center gap-3">
-              <span className="small">Usuário: João</span>
+              <span className="small">derlan bentes</span>
               <button className="btn btn-sm btn-outline-light">Sair</button>
             </div>
           </header>
 
-          {/* Abas */}
+          {/* Abas de ícones no topo */}
           <div
-            className="d-flex bg-light border-bottom px-2"
-            style={{ height: "25px", borderTop: "2px solid #ffc107", fontSize: "0.65rem" }} // amarelo estilo Bootstrap
+            className="d-flex bg-light border-bottom px-5 d-flex align-items-center "
+            style={{
+              height: "35px",
+              borderTop: "2px solid #ffc107",
+              fontSize: "1rem",
+            }}
           >
+            <button
+              className="btn btn-sm btn-outline-dark  d-flex align-items-center justify-content-center"
+              title="MB52"
+              onClick={() => openWindow("mb52")}
+              style={{ fontSize: "1rem" , height: "30px" }} // Ajuste do tamanho do ícone
+            >
+              <i className="bi bi-box-seam fs-10" />
+            </button>
+
+            <button
+              className="ms-1 btn btn-sm btn-outline-dark d-flex align-items-center justify-content-center"
+              title="MB50"
+              onClick={() => openWindow("mb50")}
+              style={{ fontSize: "1rem" , height: "30px" }} // Ajuste do tamanho do ícone
+            >
+              <i className="bi bi-clipboard2 fs-10"></i>
+            </button>
+
+            <button
+              className="ms-1 btn btn-sm btn-outline-dark d-flex align-items-center justify-content-center"
+              title="MB51"
+              onClick={() => openWindow("mb51")}
+              style={{ fontSize: "1rem" , height: "30px" }} // Ajuste do tamanho do ícone
+            >
+              <i className="bi bi-filetype-xml fs-10"></i>
+            </button>
+
+            <button
+              className=" ms-1 btn btn-sm btn-outline-dark d-flex align-items-center justify-content-center"
+              title="ZM22"
+              onClick={() => openWindow("zm22")}
+              style={{ fontSize: "1rem"  , height: "30px"}} // Ajuste do tamanho do ícone
+            >
+              <i className="bi bi-person-square fs-10"></i>
+            </button>
+          </div>
+
+          {/* Layout principal */}
+          <div className="d-flex flex-grow-1">
+            {/* Main Content */}
+            <main className="flex-grow-1 p-3">
+              {activeWindow ? (
+                <activeWindow.Component />
+              ) : (
+                <div className="d-flex flex-column align-items-center  vh-100">
+                  <h3 className="mb-3">Bem-vindo ao sistema</h3>
+                  <p>Selecione uma funcionalidade no menu ou digite o código da transação acima.</p>
+                </div>
+
+              )}
+            </main>
+          </div>
+
+          {/* Rodapé com as abas abertas - Fixo */}
+          <div
+            className="d-flex bg-light border-top px-2 py-1 fixed-bottom"
+            style={{
+              height: "29px",
+              borderBottom: "3px solid #ffc107",
+              fontSize: "0.75rem",
+              zIndex: 999, // Garantir que a barra do rodapé fique acima do conteúdo
+            }}
+          >
+            {openWindows.length === 0 && (
+              <div className="d-flex align-items-center justify-content-center w-100">
+                <span>Sem telas abertas</span>
+              </div>
+            )}
             {openWindows.map((win) => (
               <div
                 key={win.id}
-                className={`px-2 py-1 border me-1 small ${activeWindowId === win.id ? "bg-white fw-bold" : "bg-light"
+                className={`d-flex align-items-center justify-content-center px-2 py-0 border me-1 small ${activeWindowId === win.id ? "bg-white fw-bold" : "bg-light"
                   }`}
                 role="button"
                 onClick={() => setActiveWindowId(win.id)}
@@ -122,67 +198,13 @@ const App = () => {
                 {win.label}{" "}
                 <span
                   onClick={() => closeWindow(win.id)}
-                  className="ms-1 text-danger"
+                  className="ms-2 text-danger"
+                  style={{ cursor: "pointer", fontSize: "1.2rem" }} // Aumentando o ícone de fechar
                 >
                   &times;
                 </span>
               </div>
             ))}
-          </div>
-
-          {/* Layout */}
-          <div className="d-flex flex-grow-1">
-            {/* Sidebar */}
-            <aside className="bg-light border-end p-2" style={{ width: "50px" }}>
-              <div className="nav flex-column gap-3 align-items-center text-center">
-                <button
-                  className="btn btn-sm btn-outline-dark"
-                  title="MB52"
-                  onClick={() => openWindow("mb52")}
-                >
-                  <i className="bi bi-box-seam fs-5" />
-                </button>
-
-                <button
-                  className="btn btn-sm btn-outline-dark"
-                  title="Abrir MB50"
-                  onClick={() => openWindow("mb50")}
-                  style={{ fontSize: "1.2rem" }}
-                >
-                  <i className="bi bi-clipboard2"></i>
-                </button>
-
-                <button
-                  className="btn btn-sm btn-outline-dark"
-                  title="Abrir MB51"
-                  onClick={() => openWindow("mb51")}
-                  style={{ fontSize: "1.2rem" }}
-                >
-                  <i className="bi bi-filetype-xml"></i>
-                </button>
-
-                <button
-                  className="btn btn-sm btn-outline-dark"
-                  title="Abrir ZM22"
-                  onClick={() => openWindow("zm22")}
-                  style={{ fontSize: "1.2rem" }}
-                >
-                  <i className="bi bi-person-square"></i>
-                </button>
-              </div>
-            </aside>
-
-            {/* Main Content */}
-            <main className="flex-grow-1 p-3">
-              {activeWindow ? (
-                <activeWindow.Component />
-              ) : (
-                <div>
-                  <h5 className="mb-3">Bem-vindo ao sistema</h5>
-                  <p>Selecione uma funcionalidade no menu lateral ou digite o código da transação acima.</p>
-                </div>
-              )}
-            </main>
           </div>
         </>
       )}
