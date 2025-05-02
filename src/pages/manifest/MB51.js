@@ -1,14 +1,18 @@
 import React, { useState } from "react";
 import "bootstrap/dist/css/bootstrap.min.css";
-
+import "./style/style.css"
 
 export default function MB51() {
   const [manifestNumber, setManifestNumber] = useState("");
   const [xmlFile, setXmlFile] = useState(null);
   const [items, setItems] = useState([]);
   const [success, setSuccess] = useState(false);
+  const [fileName, setFileName] = useState("Nenhum arquivo selecionado");
+  
 
   const handleFileChange = (e) => {
+    const file = e.target.file[0];
+    setFileName(file.name)
     setXmlFile(e.target.files[0]);
     setSuccess(false);
     setItems([]); // Limpar itens anteriores

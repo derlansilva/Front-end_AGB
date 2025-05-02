@@ -36,6 +36,23 @@ const apiServices = {
         });
 
         return response.data;
+    },
+
+    getOrderByCode : async (code) => {
+        const response = await api.get(`/order/${code}`)
+
+        return response.data;
+    },
+    sendOrders: async (orders) => {
+        const response = await api.post("/order/bulk", orders)
+
+        return response
+    },
+
+    getOrdersByStatus  : async(status) => {
+        const response = await api.get(`/order/status/${status}`)
+
+        return response;
     }
 
 }

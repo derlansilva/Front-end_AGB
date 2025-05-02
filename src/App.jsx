@@ -11,6 +11,8 @@ import MB53 from "./pages/manifest/MB53";
 import Login from "./components/login/Login";  // Importando o componente de login
 import PD01 from "./pages/order/PD01";
 import PD02 from "./pages/order/PD02";
+import PD03 from "./pages/order/PD03";
+import PD04 from "./pages/order/PD04";
 
 const componentMap = {
   mb52: { label: "MB52 - Consulta de Produtos", component: MB52 },
@@ -18,8 +20,10 @@ const componentMap = {
   mb50: { label: "MB50 - Gerar Manifesto", component: MB50 },
   zm22: { label: "ZM22 - Cadastro e cosulta de usuarios", component: ZM22 },
   mb53: { label: "MB53 - Lista de manifestos ", component: MB53 },
-  pd01: { label: "PD01 - Upload de pedidos ", component: PD01 },
-  pd02: { label: "PD01 - Upload de pedidos ", component: PD02 },
+  pd01: { label: "PD01 - Conferencia de Pedidos ", component: PD01 },
+  pd02: { label: "PD02 - Consulta de pedidos ", component: PD02 },
+  pd03: { label: "PD03 - Processamento do arquivo ", component: PD03 },
+  pd04: { label: "PD03 - Consulta de pedidos abertos ou finalizados ", component: PD04 },
 };
 
 const App = () => {
@@ -32,13 +36,16 @@ const App = () => {
     if (e.key === "Enter") {
       const code = e.target.value.trim().toLowerCase();
       if (code && componentMap[code]) {
+        // Abre a janela somente se o código for válido
         openWindow(code);
         e.target.value = "";
       } else {
-        alert(`Transação "${code}" não encontrada.`);
+        alert(`Transação "${code}" não encontrada. Por favor, tente novamente.`);
+        e.target.value = "";  // Limpa o campo caso a transação não seja encontrada
       }
     }
   };
+  
 
   const openWindow = (code) => {
     const exists = openWindows.find((w) => w.code === code);
@@ -94,7 +101,7 @@ const App = () => {
             style={{ height: "45px" }}
           >
             <div className="d-flex align-items-center gap-2">
-              <span className="fw-semibold text-white">Mini SAP</span>
+             
               <input
                 type="text"
                 className="form-control form-control-sm"
@@ -112,7 +119,7 @@ const App = () => {
 
           {/* Abas de ícones no topo */}
           <div
-            className="d-flex bg-light border-bottom px-5 d-flex align-items-center "
+            className="d-flex bg-light border-bottom px-3 d-flex align-items-center "
             style={{
               height: "35px",
               borderTop: "2px solid #ffc107",

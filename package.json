@@ -20,6 +20,7 @@
     "react-router-dom": "^7.1.1",
     "react-scripts": "5.0.1",
     "receipt": "file:",
+    "xlsx": "^0.18.5",
     "xml2js": "^0.6.2"
   },
   "main": "main.js",
